@@ -18,6 +18,7 @@ import {
   type PaletteName,
   type PixelResult,
 } from '@/lib/pixel-tools';
+import { ResultNextSteps } from '@/components/pixel/next-steps';
 
 export type PixelCopy = Record<string, string>;
 export type WorkspaceMode = 'convert' | 'resize' | 'pattern';
@@ -422,6 +423,7 @@ export function PixelWorkspace({
           <p className="workspace-error" role="alert">
             {error}
           </p>
+          {result && !busy && <ResultNextSteps copy={copy} mode={mode} />}
         </div>
       </div>
       {isPattern && result && (

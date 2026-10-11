@@ -7,6 +7,7 @@ import {
   scalePixels,
   type AvatarOptions,
 } from '@/lib/pixel-tools';
+import { ResultNextSteps } from '@/components/pixel/next-steps';
 import type { PixelCopy } from '@/components/pixel/workspace';
 
 const defaultOptions: AvatarOptions = {
@@ -196,6 +197,7 @@ export function AvatarWorkspace({ copy }: { copy: PixelCopy }) {
           <p role="alert" className="workspace-error">
             {error}
           </p>
+          <ResultNextSteps copy={copy} mode="avatar" />
         </div>
       </div>
     </section>
