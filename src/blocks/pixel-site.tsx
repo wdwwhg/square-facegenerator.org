@@ -168,12 +168,18 @@ export const pixelCopy = (): PixelCopy => ({
 });
 const toolPaths = {
   convert: '/image-to-pixel-art',
-  avatar: '/square-face-generator',
+  avatar: '/',
   resize: '/pixel-art-resizer',
   pattern: '/pixel-art-pattern-maker',
 };
 
-function ToolCards({ copy }: { copy: PixelCopy }) {
+export function ToolCards({
+  copy,
+  includeAvatar = true,
+}: {
+  copy: PixelCopy;
+  includeAvatar?: boolean;
+}) {
   const cards = [
     { key: 'convert', icon: Image, art: 'landscape' },
     { key: 'avatar', icon: ScanFace, art: 'avatar' },
@@ -190,37 +196,39 @@ function ToolCards({ copy }: { copy: PixelCopy }) {
         <p>{copy.tools_description}</p>
       </div>
       <div className="tool-card-grid">
-        {cards.map(({ key, icon: Icon, art }, i) => (
-          <Link
-            href={toolPaths[key]}
-            className={'tool-card tool-card-' + i}
-            key={key}
-          >
-            <div className="tool-card-art">
-              <img
-                src={'/imgs/pixel/' + art + '.svg'}
-                alt={copy[key + '_title']}
-                width="256"
-                height="256"
-                loading="lazy"
-              />
-              <span className="card-arrow">
-                <MoveUpRight size={18} />
-              </span>
-            </div>
-            <div className="tool-card-copy">
-              <span className="small-label">
-                <Icon size={14} />0{i + 1}
-              </span>
-              <h3>{copy[key + '_title']}</h3>
-              <p>{copy[key + '_short']}</p>
-              <span className="card-link">
-                {copy.open_tool}
-                <ArrowRight size={14} />
-              </span>
-            </div>
-          </Link>
-        ))}
+        {cards
+          .filter(({ key }) => includeAvatar || key !== 'avatar')
+          .map(({ key, icon: Icon, art }, i) => (
+            <Link
+              href={toolPaths[key]}
+              className={'tool-card tool-card-' + i}
+              key={key}
+            >
+              <div className="tool-card-art">
+                <img
+                  src={'/imgs/pixel/' + art + '.svg'}
+                  alt={copy[key + '_title']}
+                  width="256"
+                  height="256"
+                  loading="lazy"
+                />
+                <span className="card-arrow">
+                  <MoveUpRight size={18} />
+                </span>
+              </div>
+              <div className="tool-card-copy">
+                <span className="small-label">
+                  <Icon size={14} />0{i + 1}
+                </span>
+                <h3>{copy[key + '_title']}</h3>
+                <p>{copy[key + '_short']}</p>
+                <span className="card-link">
+                  {copy.open_tool}
+                  <ArrowRight size={14} />
+                </span>
+              </div>
+            </Link>
+          ))}
       </div>
     </section>
   );

@@ -1,11 +1,13 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, redirect } from '@tanstack/react-router';
 
-import { pixelMetadata } from '@/lib/pixel-seo';
-import { PixelToolPage } from '@/blocks/pixel-site';
+import { envConfigs } from '@/config';
+import { getLocale, localizeUrl } from '@/paraglide/runtime.js';
 
 export const Route = createFileRoute('/square-face-generator')({
-  loader: () => pixelMetadata('avatar', '/square-face-generator'),
-  head: ({ loaderData }: { loaderData?: ReturnType<typeof pixelMetadata> }) =>
-    loaderData ?? {},
-  component: () => <PixelToolPage kind="avatar" />,
+  beforeLoad: ({ location }) => {
+    const home = localizeUrl(new URL('/', envConfigs.app_url), {
+      locale: getLocale(),
+    }).pathname;
+    throw redirect({ href: home + location.searchStr, statusCode: 301 });
+  },
 });

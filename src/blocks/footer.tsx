@@ -11,7 +11,7 @@ export function Footer() {
           links: [
             { href: '/image-to-pixel-art', label: m['pixel.convert_title']() },
             {
-              href: '/square-face-generator',
+              href: '/',
               label: m['pixel.avatar_title'](),
             },
             { href: '/pixel-art-resizer', label: m['pixel.resize_title']() },

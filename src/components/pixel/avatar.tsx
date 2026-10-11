@@ -152,7 +152,13 @@ export function AvatarWorkspace({ copy }: { copy: PixelCopy }) {
         <div className="workspace-stage avatar-stage">
           <div className="avatar-previews">
             <div className="avatar-main">
-              <canvas ref={ref} aria-label={copy.avatar_preview} />
+              <canvas
+                ref={ref}
+                width={256}
+                height={256}
+                role="img"
+                aria-label={copy.avatar_preview}
+              />
             </div>
             <div
               className="circle-preview"
@@ -207,5 +213,5 @@ function AvatarCircle({ options }: { options: AvatarOptions }) {
     ctx.imageSmoothingEnabled = false;
     ctx.drawImage(drawAvatar(options), 0, 0, 96, 96);
   }, [options]);
-  return <canvas ref={ref} />;
+  return <canvas ref={ref} width={96} height={96} />;
 }

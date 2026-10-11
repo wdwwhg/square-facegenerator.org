@@ -8,7 +8,6 @@ const STATIC_PATHS = [
   '',
   '/pricing',
   '/image-to-pixel-art',
-  '/square-face-generator',
   '/pixel-art-resizer',
   '/pixel-art-pattern-maker',
   '/blog',
