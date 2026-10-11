@@ -312,6 +312,46 @@ export function drawExample(kind: 'landscape' | 'flower' | 'cat') {
   return c;
 }
 
+export const avatarHairstyles = [
+  'short',
+  'long',
+  'spiky',
+  'bob',
+  'pixie',
+  'curly',
+  'ponytail',
+  'pigtails',
+  'bun',
+  'mohawk',
+  'buzz',
+  'bald',
+] as const;
+export const avatarExpressions = [
+  'smile',
+  'happy',
+  'surprised',
+  'neutral',
+  'wink',
+  'laugh',
+  'sleepy',
+  'angry',
+  'sad',
+  'shy',
+] as const;
+export const avatarEyewear = [
+  'none',
+  'square_glasses',
+  'round_glasses',
+  'sunglasses',
+  'visor',
+] as const;
+export const avatarFacialHair = [
+  'none',
+  'moustache',
+  'goatee',
+  'beard',
+] as const;
+
 export type AvatarOptions = {
   skin: string;
   hair: string;
@@ -319,7 +359,8 @@ export type AvatarOptions = {
   background: string;
   hairstyle: number;
   expression: number;
-  glasses: boolean;
+  eyewear: number;
+  facialHair: number;
 };
 export function drawAvatar(options: AvatarOptions) {
   const canvas = makeCanvas(32, 32),
@@ -330,49 +371,194 @@ export function drawAvatar(options: AvatarOptions) {
   }
   ctx.fillStyle = options.shirt;
   ctx.fillRect(5, 25, 22, 7);
+  // Long hair behind the face, so ears and facial features stay visible.
+  ctx.fillStyle = options.hair;
+  if (options.hairstyle === 1) {
+    ctx.fillRect(5, 6, 4, 21);
+    ctx.fillRect(23, 6, 4, 21);
+  } else if (options.hairstyle === 6) {
+    ctx.fillRect(25, 7, 5, 5);
+    ctx.fillRect(27, 11, 4, 11);
+    ctx.fillRect(26, 21, 4, 3);
+  } else if (options.hairstyle === 7) {
+    ctx.fillRect(2, 10, 5, 12);
+    ctx.fillRect(25, 10, 5, 12);
+    ctx.fillRect(3, 21, 3, 4);
+    ctx.fillRect(26, 21, 3, 4);
+  }
   ctx.fillStyle = options.skin;
   ctx.fillRect(13, 23, 6, 5);
   ctx.fillRect(6, 8, 20, 16);
   ctx.fillRect(4, 14, 2, 5);
   ctx.fillRect(26, 14, 2, 5);
   ctx.fillStyle = options.hair;
-  ctx.fillRect(5, 5, 22, 6);
-  ctx.fillRect(5, 9, 2, 7);
-  ctx.fillRect(25, 9, 2, 7);
-  if (options.hairstyle === 0) {
-    ctx.fillRect(7, 9, 9, 4);
-    ctx.fillRect(20, 9, 5, 3);
+  if (options.hairstyle < 9) {
+    ctx.fillRect(5, 5, 22, 6);
+    ctx.fillRect(5, 9, 2, 7);
+    ctx.fillRect(25, 9, 2, 7);
   }
-  if (options.hairstyle === 1) {
-    ctx.fillRect(5, 5, 3, 18);
-    ctx.fillRect(24, 5, 3, 18);
-    ctx.fillRect(9, 9, 14, 2);
+  switch (options.hairstyle) {
+    case 0:
+      ctx.fillRect(7, 9, 9, 4);
+      ctx.fillRect(20, 9, 5, 3);
+      break;
+    case 1:
+      ctx.fillRect(5, 9, 3, 14);
+      ctx.fillRect(24, 9, 3, 14);
+      ctx.fillRect(9, 9, 14, 2);
+      break;
+    case 2:
+      ctx.fillRect(8, 2, 4, 4);
+      ctx.fillRect(15, 1, 4, 5);
+      ctx.fillRect(22, 3, 3, 3);
+      break;
+    case 3:
+      ctx.fillRect(5, 11, 3, 10);
+      ctx.fillRect(24, 11, 3, 10);
+      ctx.fillRect(7, 9, 18, 3);
+      break;
+    case 4:
+      ctx.fillRect(6, 4, 15, 2);
+      ctx.fillRect(7, 10, 6, 3);
+      ctx.fillRect(13, 10, 5, 2);
+      break;
+    case 5:
+      ctx.fillRect(4, 5, 24, 4);
+      for (const x of [5, 11, 17, 23]) {
+        ctx.fillRect(x, 3, 4, 3);
+        ctx.fillRect(x, 9, 4, 3);
+      }
+      ctx.fillRect(4, 9, 3, 8);
+      ctx.fillRect(25, 9, 3, 8);
+      break;
+    case 6:
+      ctx.fillRect(7, 9, 8, 2);
+      ctx.fillRect(20, 9, 5, 2);
+      break;
+    case 7:
+      ctx.fillRect(8, 9, 16, 2);
+      ctx.fillStyle = options.shirt;
+      ctx.fillRect(2, 11, 4, 2);
+      ctx.fillRect(26, 11, 4, 2);
+      break;
+    case 8:
+      ctx.fillRect(12, 1, 8, 5);
+      ctx.fillRect(11, 2, 10, 3);
+      ctx.fillRect(7, 9, 4, 3);
+      ctx.fillRect(21, 9, 4, 3);
+      break;
+    case 9:
+      ctx.fillRect(14, 2, 4, 10);
+      ctx.fillRect(13, 4, 6, 6);
+      break;
+    case 10:
+      ctx.fillRect(6, 7, 20, 3);
+      ctx.fillRect(6, 9, 2, 3);
+      ctx.fillRect(24, 9, 2, 3);
+      break;
+    // Bald leaves the head free of hair.
   }
-  if (options.hairstyle === 2) {
-    ctx.fillRect(8, 2, 4, 4);
-    ctx.fillRect(15, 1, 4, 5);
-    ctx.fillRect(22, 3, 3, 3);
+  ctx.fillStyle = options.hair;
+  if (options.facialHair === 1) {
+    ctx.fillRect(12, 19, 9, 1);
+    ctx.fillRect(13, 18, 3, 1);
+    ctx.fillRect(17, 18, 3, 1);
+  } else if (options.facialHair === 2) {
+    ctx.fillRect(14, 22, 5, 3);
+    ctx.fillRect(15, 25, 3, 1);
+  } else if (options.facialHair === 3) {
+    ctx.fillRect(7, 19, 4, 4);
+    ctx.fillRect(22, 19, 3, 4);
+    ctx.fillRect(10, 22, 13, 3);
+    ctx.fillRect(12, 25, 9, 1);
   }
+
   ctx.fillStyle = '#182b43';
-  if (options.expression === 1) {
+  const closedEyes = [1, 5, 6].includes(options.expression);
+  if (closedEyes) {
     ctx.fillRect(10, 15, 4, 1);
-    ctx.fillRect(19, 15, 4, 1);
+    ctx.fillRect(18, 15, 4, 1);
+    if (options.expression !== 6) {
+      ctx.fillRect(11, 14, 2, 1);
+      ctx.fillRect(19, 14, 2, 1);
+    }
+  } else if (options.expression === 4) {
+    ctx.fillRect(11, 14, 2, 3);
+    ctx.fillRect(18, 15, 4, 1);
   } else {
     ctx.fillRect(11, 14, 2, 3);
     ctx.fillRect(19, 14, 2, 3);
   }
-  if (options.expression === 2) {
-    ctx.fillRect(15, 20, 3, 2);
-  } else {
-    ctx.fillRect(14, 20, 5, 1);
-    ctx.fillRect(15, 21, 3, 1);
+  if (options.expression === 7) {
+    ctx.fillRect(10, 11, 2, 1);
+    ctx.fillRect(12, 12, 2, 1);
+    ctx.fillRect(18, 12, 2, 1);
+    ctx.fillRect(20, 11, 2, 1);
+  } else if (options.expression === 8) {
+    ctx.fillRect(10, 12, 2, 1);
+    ctx.fillRect(12, 11, 2, 1);
+    ctx.fillRect(18, 11, 2, 1);
+    ctx.fillRect(20, 12, 2, 1);
   }
-  if (options.glasses) {
+  switch (options.expression) {
+    case 2:
+      ctx.fillRect(15, 19, 3, 3);
+      ctx.fillStyle = options.skin;
+      ctx.fillRect(16, 20, 1, 1);
+      break;
+    case 3:
+    case 6:
+      ctx.fillRect(14, 20, 5, 1);
+      break;
+    case 5:
+      ctx.fillRect(13, 19, 7, 3);
+      ctx.fillRect(14, 22, 5, 1);
+      ctx.fillStyle = '#fff2d8';
+      ctx.fillRect(14, 19, 5, 1);
+      break;
+    case 7:
+    case 8:
+      ctx.fillRect(14, 20, 5, 1);
+      ctx.fillRect(13, 21, 1, 1);
+      ctx.fillRect(19, 21, 1, 1);
+      break;
+    default:
+      ctx.fillRect(14, 20, 5, 1);
+      ctx.fillRect(15, 21, 3, 1);
+  }
+  if (options.expression === 9) {
+    ctx.fillStyle = '#e4a3a1';
+    ctx.fillRect(8, 18, 3, 2);
+    ctx.fillRect(22, 18, 3, 2);
+  }
+  ctx.fillStyle = '#182b43';
+  if (options.eyewear === 1) {
     ctx.strokeStyle = '#182b43';
     ctx.lineWidth = 1;
     ctx.strokeRect(8.5, 12.5, 6, 5);
     ctx.strokeRect(17.5, 12.5, 6, 5);
     ctx.fillRect(15, 14, 2, 1);
+  } else if (options.eyewear === 2) {
+    for (const x of [8, 18]) {
+      ctx.fillRect(x + 1, 12, 4, 1);
+      ctx.fillRect(x + 1, 17, 4, 1);
+      ctx.fillRect(x, 13, 1, 4);
+      ctx.fillRect(x + 5, 13, 1, 4);
+    }
+    ctx.fillRect(14, 14, 4, 1);
+  } else if (options.eyewear === 3) {
+    ctx.fillRect(8, 13, 7, 4);
+    ctx.fillRect(18, 13, 7, 4);
+    ctx.fillRect(15, 14, 3, 1);
+    ctx.fillStyle = '#69767c';
+    ctx.fillRect(9, 13, 2, 1);
+    ctx.fillRect(19, 13, 2, 1);
+  } else if (options.eyewear === 4) {
+    ctx.fillRect(7, 12, 19, 6);
+    ctx.fillStyle = '#4d7d87';
+    ctx.fillRect(8, 13, 17, 4);
+    ctx.fillStyle = '#cadfe9';
+    ctx.fillRect(9, 13, 6, 1);
   }
   return canvas;
 }

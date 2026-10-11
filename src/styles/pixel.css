@@ -924,7 +924,33 @@
 }
 .color-swatches {
   display: flex;
+  flex-wrap: wrap;
   gap: 9px;
+}
+.avatar-custom-color {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-top: 12px;
+  color: var(--px-muted);
+  font-size: 11px;
+}
+.avatar-custom-color input {
+  width: 44px;
+  height: 44px;
+  padding: 3px;
+  border: 1px solid var(--px-line);
+  border-radius: 5px;
+  background: var(--px-panel);
+  cursor: pointer;
+}
+.avatar-custom-color code {
+  font-size: 10px;
+}
+.avatar-workspace .workspace-controls:focus-visible {
+  outline: 2px solid var(--px-accent);
+  outline-offset: -3px;
 }
 .color-swatches button {
   width: 27px;
@@ -1354,11 +1380,15 @@
   border-right: 0;
   border-left: 1px solid var(--px-line);
   padding: 22px;
+  max-height: 780px;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
 }
 .face-home .workspace-stage {
   grid-column: 1;
   grid-row: 1;
   padding: 28px;
+  justify-content: flex-start;
 }
 .face-home .avatar-field {
   margin-bottom: 16px;
@@ -1592,6 +1622,9 @@
     border-top: 1px solid var(--px-line);
     padding: 22px;
     gap: 16px;
+    max-height: none;
+    overflow-y: visible;
+    scrollbar-gutter: auto;
   }
   .face-home .avatar-field {
     grid-column: 1 / -1;
