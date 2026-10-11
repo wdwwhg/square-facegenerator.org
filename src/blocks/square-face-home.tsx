@@ -9,6 +9,54 @@ import { AvatarWorkspace } from '@/components/pixel/avatar';
 
 export function SquareFaceHome() {
   const copy = pixelCopy();
+  const features = [
+    {
+      title: m['face.feature1_title'](),
+      description: m['face.feature1_description'](),
+    },
+    {
+      title: m['face.feature2_title'](),
+      description: m['face.feature2_description'](),
+    },
+    {
+      title: m['face.feature3_title'](),
+      description: m['face.feature3_description'](),
+    },
+    {
+      title: m['face.feature4_title'](),
+      description: m['face.feature4_description'](),
+    },
+  ];
+  const useCases = [
+    {
+      title: m['face.case1_title'](),
+      description: m['face.case1_description'](),
+      tip: m['face.case1_tip'](),
+      href: '#workspace',
+      link: m['face.case1_link'](),
+    },
+    {
+      title: m['face.case2_title'](),
+      description: m['face.case2_description'](),
+      tip: m['face.case2_tip'](),
+      href: '/pixel-art-resizer',
+      link: m['face.case2_link'](),
+    },
+    {
+      title: m['face.case3_title'](),
+      description: m['face.case3_description'](),
+      tip: m['face.case3_tip'](),
+      href: '#workspace',
+      link: m['face.case3_link'](),
+    },
+    {
+      title: m['face.case4_title'](),
+      description: m['face.case4_description'](),
+      tip: m['face.case4_tip'](),
+      href: '/pixel-art-pattern-maker',
+      link: m['face.case4_link'](),
+    },
+  ];
   const steps = [
     {
       title: m['face.step1_title'](),
@@ -45,6 +93,10 @@ export function SquareFaceHome() {
     { question: m['face.faq5_q'](), answer: m['face.faq5_a']() },
     { question: m['face.faq6_q'](), answer: m['face.faq6_a']() },
     { question: m['face.faq7_q'](), answer: m['face.faq7_a']() },
+    { question: m['face.faq8_q'](), answer: m['face.faq8_a']() },
+    { question: m['face.faq9_q'](), answer: m['face.faq9_a']() },
+    { question: m['face.faq10_q'](), answer: m['face.faq10_a']() },
+    { question: m['face.faq11_q'](), answer: m['face.faq11_a']() },
   ];
 
   return (
@@ -82,6 +134,12 @@ export function SquareFaceHome() {
           <ShieldCheck size={16} />
           {m['face.local_note']()}
         </div>
+        <nav className="face-page-nav" aria-label={m['face.contents_label']()}>
+          <a href="#features">{m['face.features_nav']()}</a>
+          <a href="#how-to-use">{m['face.how_nav']()}</a>
+          <a href="#use-cases">{m['face.cases_nav']()}</a>
+          <a href="#faq">{m['face.faq_nav']()}</a>
+        </nav>
         <section className="pixel-section face-introduction">
           <div>
             <span className="eyebrow">{m['face.about_eyebrow']()}</span>
@@ -92,7 +150,18 @@ export function SquareFaceHome() {
             <p>{m['face.about_use']()}</p>
           </div>
         </section>
-        <section className="pixel-section how-section">
+        <section id="features" className="pixel-section face-content-section">
+          <h2>{m['face.features_title']()}</h2>
+          <div className="face-content-grid">
+            {features.map(({ title, description }) => (
+              <article key={title}>
+                <h3>{title}</h3>
+                <p>{description}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+        <section id="how-to-use" className="pixel-section how-section">
           <h2>{m['face.how_title']()}</h2>
           <div className="how-grid">
             {steps.map(({ title, description }, i) => (
@@ -132,6 +201,23 @@ export function SquareFaceHome() {
             ))}
           </div>
         </section>
+        <section id="use-cases" className="pixel-section face-content-section">
+          <h2>{m['face.cases_title']()}</h2>
+          <p className="face-section-intro">{m['face.cases_description']()}</p>
+          <div className="face-content-grid face-use-cases">
+            {useCases.map(({ title, description, tip, href, link }) => (
+              <article key={title}>
+                <h3>{title}</h3>
+                <p>{description}</p>
+                <p>{tip}</p>
+                <Link href={href} className="text-link">
+                  {link}
+                  <ArrowRight size={14} />
+                </Link>
+              </article>
+            ))}
+          </div>
+        </section>
         <ToolCards
           includeAvatar={false}
           copy={{
@@ -140,7 +226,7 @@ export function SquareFaceHome() {
             tools_description: m['face.related_description'](),
           }}
         />
-        <section className="pixel-section faq-section">
+        <section id="faq" className="pixel-section faq-section">
           <h2>{m['face.faq_title']()}</h2>
           <div>
             {questions.map(({ question, answer }, i) => (
