@@ -143,11 +143,22 @@ export function SquareFaceHome() {
         <section className="pixel-section face-introduction">
           <div>
             <span className="eyebrow">{m['face.about_eyebrow']()}</span>
-            <h2>{m['face.about_title']()}</h2>
+            <h2>
+              <Link href="/square-face-icon-generator">
+                {m['face.about_title']()}
+              </Link>
+            </h2>
           </div>
           <div>
             <p>{m['face.about_description']()}</p>
             <p>{m['face.about_use']()}</p>
+            <p>
+              {m['entry.square_before']()}
+              <Link className="text-link" href="/square-pfp">
+                square PFP
+              </Link>
+              {m['entry.square_after']()}
+            </p>
           </div>
         </section>
         <section id="features" className="pixel-section face-content-section">
@@ -184,6 +195,13 @@ export function SquareFaceHome() {
               <ArrowRight size={14} />
             </a>
           </div>
+          <p className="face-section-intro">
+            {m['entry.ideas_before']()}
+            <Link className="text-link" href="/square-pfp-generator">
+              square PFP generator
+            </Link>
+            {m['entry.ideas_after']()}
+          </p>
           <div className="how-grid">
             {ideas.map(({ title, description }, i) => (
               <article key={title}>
@@ -205,11 +223,29 @@ export function SquareFaceHome() {
           <h2>{m['face.cases_title']()}</h2>
           <p className="face-section-intro">{m['face.cases_description']()}</p>
           <div className="face-content-grid face-use-cases">
-            {useCases.map(({ title, description, tip, href, link }) => (
+            {useCases.map(({ title, description, tip, href, link }, i) => (
               <article key={title}>
                 <h3>{title}</h3>
                 <p>{description}</p>
                 <p>{tip}</p>
+                {i === 1 && (
+                  <p>
+                    {m['entry.pixel_before']()}
+                    <Link className="text-link" href="/pixel-art-generator">
+                      pixel art generator
+                    </Link>
+                    {m['entry.pixel_after']()}
+                  </p>
+                )}
+                {i === 2 && (
+                  <p>
+                    {m['entry.pfp_before']()}
+                    <Link className="text-link" href="/pfp-maker">
+                      square PFP maker
+                    </Link>
+                    {m['entry.pfp_after']()}
+                  </p>
+                )}
                 <Link href={href} className="text-link">
                   {link}
                   <ArrowRight size={14} />

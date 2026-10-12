@@ -1,10 +1,12 @@
 import { createFileRoute } from '@tanstack/react-router';
 
 import { envConfigs } from '@/config';
+import { avatarEntries } from '@/lib/avatar-entries';
 import { baseLocale, locales, localizeUrl } from '@/paraglide/runtime.js';
 
 const STATIC_PATHS = [
   '',
+  ...Object.values(avatarEntries).map((entry) => entry.path),
   '/pricing',
   '/image-to-pixel-art',
   '/pixel-art-resizer',

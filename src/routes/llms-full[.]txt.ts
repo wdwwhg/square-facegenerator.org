@@ -1,8 +1,15 @@
 import { createFileRoute } from '@tanstack/react-router';
 
 import { envConfigs } from '@/config';
+import { avatarEntries } from '@/lib/avatar-entries';
 
 const STATIC_PAGES = [
+  ...Object.values(avatarEntries).map((entry) => ({
+    path: entry.path,
+    title: entry.keyword,
+    description:
+      'Editable pixel character maker with a tailored starting preset and usage guide',
+  })),
   {
     path: '/',
     title: 'Square Face Generator',

@@ -96,8 +96,17 @@ const swatches: Record<'skin' | 'hair' | 'shirt' | 'background', string[]> = {
   ],
 };
 
-export function AvatarWorkspace({ copy }: { copy: PixelCopy }) {
-  const [options, setOptions] = useState(defaultOptions);
+export function AvatarWorkspace({
+  copy,
+  initialOptions,
+}: {
+  copy: PixelCopy;
+  initialOptions?: Partial<AvatarOptions>;
+}) {
+  const [options, setOptions] = useState(() => ({
+    ...defaultOptions,
+    ...initialOptions,
+  }));
   const [error, setError] = useState('');
   const ref = useRef<HTMLCanvasElement>(null);
   useEffect(() => {
