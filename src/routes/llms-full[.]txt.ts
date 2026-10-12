@@ -4,6 +4,12 @@ import { envConfigs } from '@/config';
 import { avatarEntries } from '@/lib/avatar-entries';
 
 const STATIC_PAGES = [
+  {
+    path: '/picrew-alternative',
+    title: 'Picrew Alternative',
+    description:
+      'Workflow guide for quick square pixel avatars with a direct PNG download and no account required',
+  },
   ...Object.values(avatarEntries).map((entry) => ({
     path: entry.path,
     title: entry.keyword,

@@ -6,6 +6,7 @@ import { baseLocale, locales, localizeUrl } from '@/paraglide/runtime.js';
 
 const STATIC_PATHS = [
   '',
+  '/picrew-alternative',
   ...Object.values(avatarEntries).map((entry) => entry.path),
   '/pricing',
   '/image-to-pixel-art',

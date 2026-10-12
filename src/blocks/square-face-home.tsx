@@ -272,6 +272,15 @@ export function SquareFaceHome() {
                   <span aria-hidden="true">+</span>
                 </summary>
                 <p>{answer}</p>
+                {i === 5 && (
+                  <Link
+                    className="text-link face-archive-link"
+                    href="/picrew-alternative"
+                  >
+                    {m['alternative.home_faq_link']()}
+                    <ArrowRight size={14} />
+                  </Link>
+                )}
                 {i === 4 && (
                   <a
                     className="text-link face-archive-link"

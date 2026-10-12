@@ -5,12 +5,20 @@ import { m } from '@/paraglide/messages.js';
 import { getLocale, locales, localizeUrl } from '@/paraglide/runtime.js';
 
 export function pixelMetadata(
-  kind: 'home' | 'convert' | 'avatar' | 'resize' | 'pattern' | 'upgrade',
+  kind:
+    | 'home'
+    | 'convert'
+    | 'avatar'
+    | 'resize'
+    | 'pattern'
+    | 'upgrade'
+    | 'alternative',
   path: string
 ) {
   const title =
     {
       home: m['pixel.home_meta'](),
+      alternative: m['alternative.meta'](),
       upgrade: m['pixel.upgrade_meta'](),
       convert: m['pixel.convert_title'](),
       avatar: m['pixel.avatar_title'](),
@@ -21,6 +29,7 @@ export function pixelMetadata(
     envConfigs.app_name;
   const description = {
     home: m['pixel.hero_description'](),
+    alternative: m['alternative.description'](),
     upgrade: m['pixel.upgrade_description'](),
     convert: m['pixel.convert_description'](),
     avatar: m['pixel.avatar_description'](),
